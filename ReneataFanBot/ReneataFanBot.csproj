@@ -120,6 +120,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CognitiveResponse.cs" />
     <Compile Include="Services\EmotionDetectService.cs" />
+    <Compile Include="Services\ImageData.cs" />
+    <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\IntentData.cs" />
     <Compile Include="Services\TopScoringIntentData.cs" />
   </ItemGroup>
