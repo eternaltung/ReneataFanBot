@@ -12,7 +12,7 @@ namespace ReneataFanBot.Services
 {
     public class ImageService
     {
-        private async Task<string> GetImage()
+        public async Task<string> GetImage()
         {
             string url = "http://sayyes.dtask.idv.tw/api/say";
 
