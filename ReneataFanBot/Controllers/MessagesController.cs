@@ -7,6 +7,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System.Linq;
 using ReneataFanBot.Services;
+using System.Collections.Generic;
 
 namespace ReneataFanBot
 {
@@ -30,7 +31,16 @@ namespace ReneataFanBot
 
                 if (result)
                 {   //positive
-                    reply.Text = "agree";
+					List<string> sentenses = new List<string>()
+					{
+						"That's cool!",
+						"I agree with you!",
+						"Awesome!",
+						"I can't agree with you anymore!"
+					};
+
+					Random rnd = new Random();
+                    reply.Text = sentenses[rnd.Next(0, sentenses.Count)];
                 }
                 else
                 {   //negative
