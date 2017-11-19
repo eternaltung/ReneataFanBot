@@ -6,6 +6,7 @@ using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
 using System.Linq;
+using ReneataFanBot.Services;
 
 namespace ReneataFanBot
 {
@@ -23,13 +24,23 @@ namespace ReneataFanBot
 				ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
 				Activity reply = activity.CreateReply();
 
-				reply.Attachments.Add(new Attachment()
-				{
-					ContentType = "image/jpg",
-					ContentUrl = "https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/23755755_1910154922357806_5413044158847840781_n.jpg?oh=1c431858f64be12abc0bd3a4d7e21894&oe=5A994429"
-				});
+				EmotionDetectService service = new EmotionDetectService();
 
-				reply.Text = "yes";
+				var result = await service.IsSentencePositive(activity.Text);
+
+				if (result)
+				{   //positive
+					reply.Text = "agree";
+				}
+				else
+				{   //negative
+					reply.Attachments.Add(new Attachment()
+					{
+						ContentType = "image/jpg",
+						ContentUrl = "https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/23755755_1910154922357806_5413044158847840781_n.jpg?oh=1c431858f64be12abc0bd3a4d7e21894&oe=5A994429"
+					});
+				}
+
 				await connector.Conversations.ReplyToActivityAsync(reply);
 			}
 			else
