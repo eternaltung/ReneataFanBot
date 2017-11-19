@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -18,7 +19,17 @@ namespace ReneataFanBot
 		{
 			if (activity.Type == ActivityTypes.Message)
 			{
-				await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+				ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+				Activity reply = activity.CreateReply();
+
+				reply.Attachments.Add(new Attachment()
+				{
+					ContentType = "image/jpg",
+					ContentUrl = "https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/23755755_1910154922357806_5413044158847840781_n.jpg?oh=1c431858f64be12abc0bd3a4d7e21894&oe=5A994429"
+				});
+
+				reply.Text = "yes";
+				await connector.Conversations.ReplyToActivityAsync(reply);
 			}
 			else
 			{
