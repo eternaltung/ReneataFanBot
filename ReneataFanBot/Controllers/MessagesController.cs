@@ -47,6 +47,7 @@ namespace ReneataFanBot
                     var imageService = new ImageService();
                     var imageUrl = await imageService.GetImage();
 
+                    reply.Text = "Say \"YES\" to Reneata!";
                     reply.Attachments.Add(new Attachment()
                     {
                         ContentType = "image/jpg",
